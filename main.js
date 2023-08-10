@@ -82,7 +82,8 @@ if (process.platform === "win32") {
   server = new PHPServer({
     php: `${__dirname}/php/php.exe`,
     port: 5555,
-    directory: __dirname,
+    directory: `${__dirname}/bengkel`,
+    script: `${__dirname}/router.php`,
     directives: {
       display_errors: 1,
       expose_php: 1,
@@ -91,9 +92,10 @@ if (process.platform === "win32") {
 } else {
   server = new PHPServer({
     port: 5555,
-    directory: __dirname,
+    directory: `${__dirname}/bengkel`,
+    script: `${__dirname}/router.php`,
     directives: {
-      display_errors: 0,
+      display_errors: 1,
       expose_php: 1,
     },
   });
@@ -110,16 +112,9 @@ function createWindow() {
   // Create the browser window.
   mainWindow = new BrowserWindow({ width: 800, height: 600 });
 
-  // and load the index.html of the app.
+  // and load the index.html of the app.;
   mainWindow.loadURL("http://" + server.host + ":" + server.port + "/");
 
-  /*
-mainWindow.loadURL(url.format({
-  pathname: path.join(__dirname, 'index.php'),
-  protocol: 'file:',
-  slashes: true
-}))
-*/
   const { shell } = require("electron");
   shell.showItemInFolder("fullPath");
 
